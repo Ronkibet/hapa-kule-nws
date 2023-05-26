@@ -1,69 +1,44 @@
 class Magazine
-
-    @@all = []
-
-
     attr_accessor :name, :category
-
     @@all = []
-
-    def initialize(name,category)
-        @name=name
-        @category=category
-        @@all << self
-        @contributors=[]
+  
+    def initialize(name, category)
+      @name = name
+      @category = category
+      ##shovel each new instance into an array
+      @@all << self
     end
-
+  
     def self.all
-        @@all
+      @@all
+    end
+  
+       ##helper function
+    def magazine_articles
+      Article.all.select{|article| article.magazine.name == self.name}
+    end
+  
     def contributors
-        @contributors
+      magazine_articles.collect{|article| article.author}.uniq
     end
-
-    def contributors(authors)
-        @contributors
-
-    def add_contributors(author)
-       @contributors=author 
-    end
-
+  
     def self.find_by_name(name)
-        all.find{|x|x.name==name}
+      find_magazines = self.all.select { |magazine| magazine.name == name}
+      find_magazines.first
     end
-
+  
     def article_titles
-        Article.all.select {|article| article.magazine == self}.map {|article| article.title}
+      magazine_articles.collect{|article| article.title}
     end
-
+  
     def contributing_authors
-        Article.all.select {|article| article.magazine == self}
-        .map {|article|article.author}
-        .group_by(&:itself)
-        .select {|_,author| author.length > 2}
-        .keys
+      #tally the authors then map through the articles and get array the of the author
+      magazine_authors = magazine_articles.collect{|article| article.author.name}
+      magazine_authors.tally.each {|key, value|  value > 2}
+      magazine_authors
     end
-
-end
-magazine = Magazine.new("Harry Potter","Fiction")
-puts magazine.name
-puts magazine.category
-
-Magazine.new("National Geographic", "Science and Nature")
-Magazine.new("Time", "Current Events")
-Magazine.new("Vogue", "Fashion")
-
-all_magazines = Magazine.all
-all_magazines.each do |magazine|
-puts "#{magazine.name} - #{magazine.category}"
-end
-#magazine = Magazine.new("Harry Potter","Fiction")
-#puts magazine.name
-#puts magazine.category
-
-#Magazine.new("National Geographic", "Science and Nature")
-#Magazine.new("Time", "Current Events")
-#Magazine.new("Vogue", "Fashion")
-
-#all_magazines = Magazine.all
-#all_magazines.each do |magazine|
-#puts "#{magazine.name} - #{magazine.category}"
+  end
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
