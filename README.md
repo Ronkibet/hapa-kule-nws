@@ -14,7 +14,3 @@ For our purposes, an Author has many Articles, a Magazine has many Articles, and
 <small>Then in your terminal run the following code<small>
 
        ruby bin/run
-
-<h2>Here's an example<h2>
-
-![alt text](data.png)
