@@ -1,3 +1,4 @@
-require_relative '../files/article'
-require_relative '../files/author'
-require_relative '../files/magazine'
+require 'bundler/setup'
+Bundler.require
+require_all 'lib'
+Footer
