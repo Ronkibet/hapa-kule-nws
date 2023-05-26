@@ -1,6 +1,6 @@
 require_relative '../config/environment'
 
-author1= Author.new("Ronnie Kibet")
+author1 = Author.new("Ronnie Kibet")
 puts author1.name
 
 magazine1 = Magazine.new("Harry Potter","Fiction")
